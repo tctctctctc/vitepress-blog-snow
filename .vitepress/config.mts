@@ -2,7 +2,9 @@ import { defineConfigWithTheme } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfigWithTheme({
+  /** 站名 */
   title: "Tang's Blog",
+  /** 网站描述 */
   description: "工作、生活、学习记录",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
