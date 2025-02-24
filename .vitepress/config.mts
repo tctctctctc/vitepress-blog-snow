@@ -1,4 +1,5 @@
 import { defineConfigWithTheme } from 'vitepress'
+import { getMDFilesWithFrontmatter } from './theme/utils'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfigWithTheme({
@@ -23,6 +24,8 @@ export default defineConfigWithTheme({
       copyright: 'CopyRight'
     },
     /** head标签 */
-    head: [['link', { rel: 'icon', href: '/images/head.jpg' }]]
+    head: [['link', { rel: 'icon', href: '/images/head.jpg' }]],
+    /** 博客 */
+    blogs: getMDFilesWithFrontmatter('blogs')
   }
 })
