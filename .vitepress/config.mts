@@ -25,10 +25,17 @@ export default defineConfigWithTheme({
     },
     /** 博客 */
     blogs: getMDFilesWithFrontmatter('blogs'),
-
+    /** 最后更新-文本 */
+    lastUpdatedText: '最后更新时间',
+    /** pageSize */
+    pageSize: 5,
+    /** 大纲级别 */
+    outline: [2, 5]
   },
   /** 部署根目录 */
   base: '/docs/',
   /** head标签 */
   head: [['link', { rel: 'icon', href: '/docs/images/head.jpg' }]],
+  /** 最后更新于 */
+  lastUpdated: true
 })
