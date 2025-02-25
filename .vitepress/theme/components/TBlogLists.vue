@@ -40,7 +40,6 @@ const { theme, isDark } = useData();
 
 // 博客数据
 const blogInfos = theme.value.blogs;
-console.log("111", theme.value.blogs);
 </script>
 
 <style>
@@ -143,6 +142,7 @@ console.log("111", theme.value.blogs);
   .t-list-container > .t-lists > ul > li > .t-blog-cover {
     width: 100%;
     height: 100%;
+    border-radius: 8px 8px 0 0 !important;
   }
 }
 </style>

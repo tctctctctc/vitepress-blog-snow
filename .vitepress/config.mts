@@ -23,9 +23,12 @@ export default defineConfigWithTheme({
       message: '这是一个页脚的信息',
       copyright: 'CopyRight'
     },
-    /** head标签 */
-    head: [['link', { rel: 'icon', href: '/images/head.jpg' }]],
     /** 博客 */
-    blogs: getMDFilesWithFrontmatter('blogs')
-  }
+    blogs: getMDFilesWithFrontmatter('blogs'),
+
+  },
+  /** 部署根目录 */
+  base: '/docs/',
+  /** head标签 */
+  head: [['link', { rel: 'icon', href: '/docs/images/head.jpg' }]],
 })
