@@ -2,24 +2,15 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
-hero:
-  name: "Tang's Blog"
-  text: "工作、生活、学习记录"
-  tagline: My great project tagline
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+home:
+  title: "Tang's Blog"
+  description: "工作、生活、学习记录"
+  typings: 
+    - 言念君子，温其如玉
+    - 好好学习，天天向上
+    - 别丢了你的勇敢
+    - 宝剑锋从磨砺出，梅花香苦自苦寒来
+    - 人活着就要快乐
+  homeBg: 'images/home-bg.jpg'
 ---
 
