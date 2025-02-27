@@ -30,7 +30,19 @@ export default defineConfigWithTheme({
     /** pageSize */
     pageSize: 5,
     /** 大纲级别 */
-    outline: [2, 5]
+    outline: [2, 5],
+    /** 深浅主题切换显示文本 */
+    darkModeSwitchLabel: '主题',
+    /** 深色模式下主题切换开关悬停显示的文本 */
+    lightModeSwitchTitle: '切换到浅色模式',
+    /** 浅色模式下主题切换开关悬停显示的文本 */
+    darkModeSwitchTitle: '切换到深色模式',
+    /** 回到顶部文本 */
+    returnToTopLabel: '回到顶部',
+    /** 本地搜索 */
+    search: {
+      provider: 'local'
+    }
   },
   /** 部署根目录 */
   base: '/docs/',
