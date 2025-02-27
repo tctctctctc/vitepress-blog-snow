@@ -2,7 +2,7 @@
   <div class="t-list-container">
     <!-- 列表 -->
     <div class="t-lists">
-      <ul :class="isDark ? 'isDark' : ''">
+      <ul ref="blogListRef" :class="isDark ? 'isDark' : ''">
         <li
           v-for="(blog, index) in blogs"
           :key="blog.path"
@@ -76,17 +76,29 @@ const blogs = computed(() => {
   return blogInfos.slice(startIndex, endIndex);
 });
 
+const blogListRef = ref(null);
+
 // 页码减
 const subPage = () => {
   if (currentPage.value > 1) {
-    currentPage.value--;
+    blogListRef.value.style.opacity = 0;
+    setTimeout(() => {
+      currentPage.value--;
+      blogListRef.value.style.opacity = 1;
+    }, 300);
+    blogListRef.value.firstElementChild.scrollIntoView({ behavior: "smooth" });
   }
 };
 
 // 页码加
 const addPage = () => {
+  blogListRef.value.style.opacity = 0;
   if (currentPage.value < maxPage) {
-    currentPage.value++;
+    setTimeout(() => {
+      currentPage.value++;
+      blogListRef.value.style.opacity = 1;
+    }, 300);
+    blogListRef.value.firstElementChild.scrollIntoView({ behavior: "smooth" });
   }
 };
 </script>
@@ -103,10 +115,6 @@ const addPage = () => {
   width: 74%;
 }
 
-.t-list-container > .t-lists {
-  width: 74%;
-}
-
 @media screen and (max-width: 900px) {
   .t-list-container > .t-lists {
     width: 100%;
@@ -116,6 +124,7 @@ const addPage = () => {
 .t-list-container > .t-lists > ul {
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease;
 }
 
 .t-list-container > .t-lists > ul > li {
@@ -190,7 +199,7 @@ const addPage = () => {
 
   .t-list-container > .t-lists > ul > li > .t-blog-cover {
     width: 100%;
-    height: 100%;
+    height: 230px;
     border-radius: 8px 8px 0 0 !important;
   }
 }
