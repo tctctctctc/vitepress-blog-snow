@@ -42,7 +42,12 @@ export default defineConfigWithTheme({
     /** 本地搜索 */
     search: {
       provider: 'local'
-    }
+    },
+    /** 个人简介 */
+    profile: {
+      name: 'Tang',
+      slogan: '言念君子，温其如玉'
+    },
   },
   /** 部署根目录 */
   base: '/docs/',
