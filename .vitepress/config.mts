@@ -10,7 +10,8 @@ export default defineConfigWithTheme({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: '🏡首页', link: '/' }
+      { text: '🏡首页', link: '/' },
+      { text: '📃归档', link: '/archives' }
     ],
     /** 社交链接 */
     socialLinks: [
