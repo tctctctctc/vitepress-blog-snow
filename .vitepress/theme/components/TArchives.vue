@@ -1,37 +1,68 @@
 <template>
-  <div :class="['t-archives', isDark ? 'dark' : '']">
-    <div class="t-archives-title">
-      <span class="">归档</span>
+  <div class="t-page-container">
+    <!-- 标签 -->
+    <div
+      class="t-tags"
+      v-if="$frontmatter?.pageType === 'tags'"
+      :class="['t-tags', isDark ? 'dark' : '']"
+    >
+      <div
+        v-for="tag in Object.keys(allTags)"
+        class="t-tag"
+        :key="tag"
+        :style="{
+          fontSize: `${
+            allTags[tag] / theme.blogs.blogInfos.length + 0.9 > 1.3
+              ? 1.3
+              : allTags[tag] / theme.blogs.blogInfos.length + 0.9
+          }em`,
+        }"
+        @click="getBlogs(tag)"
+      >
+        <span>{{ tag }}</span>
+        <span>{{ allTags[tag] }}</span>
+      </div>
     </div>
-    <!-- 列表 -->
-    <ul>
-      <li v-for="blog in blogs" :key="blog.path">
-        <div class="cover">
-          <a :href="withBase('/' + blog.path)">
-            <img :src="withBase(blog.frontmatter.cover)"
-          /></a>
-        </div>
-        <div class="info">
-          <span>🕒 {{ blog.frontmatter.date }}</span>
-          <h2>
+    <div v-if="blogs.length" :class="['t-archives', isDark ? 'dark' : '']">
+      <div class="t-archives-title">
+        <span class="">{{ selectTag }}</span>
+      </div>
+      <!-- 列表 -->
+      <ul>
+        <li v-for="blog in blogs" :key="blog.path">
+          <div class="cover">
             <a :href="withBase('/' + blog.path)">
-              {{ blog.frontmatter.title }}
-            </a>
-          </h2>
-        </div>
-      </li>
-    </ul>
+              <img :src="withBase(blog.frontmatter.cover)"
+            /></a>
+          </div>
+          <div class="info">
+            <span>🕒 {{ blog.frontmatter.date }}</span>
+            <h2>
+              <a :href="withBase('/' + blog.path)">
+                {{ blog.frontmatter.title }}
+              </a>
+            </h2>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useData, withBase } from "vitepress";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 
-const { theme, isDark } = useData();
+const { theme, isDark, frontmatter } = useData();
 
 // 全部文章数据
 const allBlogs = [...theme.value.blogs.blogInfos];
+
+// 全部标签数据
+const allTags = theme.value.blogs.tags;
+
+// 已选择的标签
+const selectTag = ref("");
 
 // 当前页面数据
 const blogs = ref([]);
@@ -55,20 +86,72 @@ const blogSortedByTime = (blogs) => {
   });
 };
 
-// 按标签生成文章
+// 生成文章
 const getBlogs = (tag) => {
   if (!tag) {
-    return allBlogs;
+    blogs.value = allBlogs;
+  } else {
+    selectTag.value = tag;
+    blogs.value = allBlogs.filter((blog) => {
+      if (blog.frontmatter.tags.includes(tag)) {
+        return true;
+      }
+    });
   }
 };
 
+watch(
+  frontmatter,
+  () => {
+    if (frontmatter.value.pageType === "archives") {
+      selectTag.value = "归档";
+      getBlogs();
+    } else {
+      blogs.value = [];
+    }
+  },
+  { immediate: true }
+);
+
 onMounted(() => {
   blogSortedByTime(allBlogs);
-  blogs.value = getBlogs();
 });
 </script>
 
 <style>
+.t-page-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.t-tags {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1em;
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.05);
+  margin-bottom: 20px;
+}
+
+.t-tags.dark {
+  box-shadow: 0 3px 8px 6px rgba(236, 239, 242, 0.2);
+}
+
+.t-tags > .t-tag {
+  margin: 1em;
+  cursor: pointer;
+  position: relative;
+}
+
+.t-tags > .t-tag > span:nth-child(2) {
+  position: absolute;
+  top: -3px;
+  font-size: 0.9em;
+}
+
 .t-archives {
   width: 100%;
   display: flex;
