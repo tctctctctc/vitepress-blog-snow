@@ -5,7 +5,12 @@
     </template>
 
     <template #home-features-after>
-      <t-blog-lists />
+      <t-container />
+    </template>
+
+    <!-- page布局 -->
+    <template #page-top>
+      <t-container layout="archives" />
     </template>
   </layout>
 </template>
@@ -13,7 +18,7 @@
 <script setup>
 import DefaultTheme from "vitepress/theme";
 import THome from "./THome.vue";
-import TBlogLists from "./TBlogLists.vue";
+import TContainer from "./TContainer.vue";
 
 const { Layout } = DefaultTheme;
 </script>

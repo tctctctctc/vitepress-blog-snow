@@ -11,6 +11,6 @@ home:
     - 别丢了你的勇敢
     - 宝剑锋从磨砺出，梅花香苦自苦寒来
     - 人活着就要快乐
-  homeBg: 'images/home-bg.jpg'
+  homeBg: '/images/home-bg.jpg'
 ---
 

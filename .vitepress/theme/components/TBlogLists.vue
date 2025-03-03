@@ -1,76 +1,85 @@
 <template>
-  <div class="t-list-container">
+  <div class="t-lists">
     <!-- 列表 -->
-    <div class="t-lists">
-      <ul :class="isDark ? 'isDark' : ''">
-        <li
-          v-for="(blog, index) in blogInfos"
-          :key="blog.path"
-          :class="index % 2 ? '' : 'reverse-cover'"
-        >
-          <div class="t-blog-info">
-            <h2>
-              <a :href="blog.path">{{ blog.frontmatter.title }}</a>
-            </h2>
-            <div class="t-blog-meta">
-              📅 发表于
-              <span>{{ blog.frontmatter.date }}</span>
-              | 🔖
-              <span v-if="blog.frontmatter.categories">{{
-                blog.frontmatter.categories[0]
-              }}</span>
-            </div>
-            <p>{{ blog.frontmatter.description }}</p>
+    <ul ref="blogListRef" :class="isDark ? 'isDark' : ''">
+      <li
+        v-for="(blog, index) in blogs"
+        :key="blog.path"
+        :class="index % 2 ? '' : 'reverse-cover'"
+      >
+        <div class="t-blog-info">
+          <h2>
+            <a :href="blog.path">{{ blog.frontmatter.title }}</a>
+          </h2>
+          <div class="t-blog-meta">
+            📅 发表于
+            <span>{{ blog.frontmatter.date }}</span>
+            | 🔖
+            <span v-if="blog.frontmatter.categories">{{
+              blog.frontmatter.categories[0]
+            }}</span>
           </div>
-          <div class="t-blog-cover">
-            <a :href="blog.path">
-              <img :src="blog.frontmatter.cover" />
-            </a>
-          </div>
-        </li>
-      </ul>
-    </div>
+          <p>{{ blog.frontmatter.description }}</p>
+        </div>
+        <div class="t-blog-cover">
+          <a :href="blog.path">
+            <img :src="blog.frontmatter.cover" />
+          </a>
+        </div>
+      </li>
+    </ul>
+
+    <!-- 分页 -->
+    <t-pagination :blogInfos="blogInfos" @getBlogs="getBlogs" />
   </div>
 </template>
 
 <script setup>
 import { useData } from "vitepress";
+import { ref } from "vue";
+
+import TPagination from "./TPagination.vue";
 
 const { theme, isDark } = useData();
 
-// 博客数据
-const blogInfos = theme.value.blogs;
-console.log("111", theme.value.blogs);
+// 文章数据
+const blogInfos = theme.value.blogs.blogInfos;
+
+const blogListRef = ref(null);
+
+// 计算后的每页文章
+const blogs = ref([]);
+
+const getBlogs = (data) => {
+  // DOM渲染后每次更新文章再添加过渡效果
+  if (blogListRef.value) {
+    blogListRef.value.style.opacity = 0;
+    setTimeout(() => {
+      blogs.value = data;
+      blogListRef.value.style.opacity = 1;
+      blogListRef.value.firstElementChild?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }, 600);
+  } else {
+    blogs.value = data;
+  }
+};
 </script>
 
 <style>
-.t-list-container {
+.t-lists {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 15px;
+  height: 100%;
 }
 
-.t-list-container > .t-lists {
-  width: 74%;
-}
-
-.t-list-container > .t-lists {
-  width: 74%;
-}
-
-@media screen and (max-width: 900px) {
-  .t-list-container > .t-lists {
-    width: 100%;
-  }
-}
-
-.t-list-container > .t-lists > ul {
+.t-lists > ul {
   display: flex;
   flex-direction: column;
+  transition: all 0.6s ease;
 }
 
-.t-list-container > .t-lists > ul > li {
+.t-lists > ul > li {
   border-radius: 8px;
   background: var(--vp-c-bg);
   margin-bottom: 30px;
@@ -79,15 +88,15 @@ console.log("111", theme.value.blogs);
   box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.05);
 }
 
-.t-list-container > .t-lists > ul > li.reverse-cover {
+.t-lists > ul > li.reverse-cover {
   flex-direction: row-reverse;
 }
 
-.t-list-container > .t-lists > ul.isDark > li {
+.t-lists > ul.isDark > li {
   box-shadow: 0 3px 8px 6px rgba(236, 239, 242, 0.2);
 }
 
-.t-list-container > .t-lists > ul > li > .t-blog-info {
+.t-lists > ul > li > .t-blog-info {
   width: 65%;
   padding: 0 40px;
   display: flex;
@@ -95,54 +104,55 @@ console.log("111", theme.value.blogs);
   justify-content: center;
 }
 
-.t-list-container > .t-lists > ul > li > .t-blog-info > .t-blog-meta {
+.t-lists > ul > li > .t-blog-info > .t-blog-meta {
   margin: 10px 0;
   font-size: 0.9em;
 }
 
-.t-list-container > .t-lists > ul > li > .t-blog-info > h2 > a {
+.t-lists > ul > li > .t-blog-info > h2 > a {
   font-size: 1.55em;
   line-height: 1.4;
   cursor: pointer;
 }
 
-.t-list-container > .t-lists > ul > li > .t-blog-cover {
+.t-lists > ul > li > .t-blog-cover {
   width: 35%;
   height: 100%;
   overflow: hidden;
   border-radius: 0 8px 8px 0;
 }
 
-.t-list-container > .t-lists > ul > li.reverse-cover > .t-blog-cover {
+.t-lists > ul > li.reverse-cover > .t-blog-cover {
   border-radius: 8px 0 0 8px;
 }
 
-.t-list-container > .t-lists > ul > li > .t-blog-cover > a > img {
+.t-lists > ul > li > .t-blog-cover > a > img {
   width: 100%;
   height: 100%;
   cursor: pointer;
   transition: transform 0.5s ease;
 }
 
-.t-list-container > .t-lists > ul > li > .t-blog-cover > a > img:hover {
+.t-lists > ul > li > .t-blog-cover > a > img:hover {
   transform: scale(1.2);
 }
 
 @media screen and (max-width: 768px) {
-  .t-list-container > .t-lists > ul > li {
+  .t-lists > ul > li {
     display: flex;
     flex-direction: column-reverse !important;
     height: auto;
   }
 
-  .t-list-container > .t-lists > ul > li > .t-blog-info {
+  .t-lists > ul > li > .t-blog-info {
     width: 100%;
     padding: 20px 20px 30px;
   }
 
-  .t-list-container > .t-lists > ul > li > .t-blog-cover {
+  .t-lists > ul > li > .t-blog-cover {
     width: 100%;
-    height: 100%;
+    height: 230px;
+    border-radius: 8px 8px 0 0 !important;
   }
 }
 </style>
