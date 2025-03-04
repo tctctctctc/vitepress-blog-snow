@@ -50,6 +50,10 @@ export default defineConfigWithTheme({
       name: 'Tang',
       slogan: '言念君子，温其如玉'
     },
+    /** twikoo评论配置 */
+    twikoo: {
+      envId: ''
+    }
   },
   /** 部署根目录 */
   base: '/docs/',

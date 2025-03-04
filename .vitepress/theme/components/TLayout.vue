@@ -12,6 +12,10 @@
     <template #page-top>
       <t-container layout="archives" />
     </template>
+
+    <template #doc-after>
+      <twikoo></twikoo>
+    </template>
   </layout>
 </template>
 
@@ -19,6 +23,7 @@
 import DefaultTheme from "vitepress/theme";
 import THome from "./THome.vue";
 import TContainer from "./TContainer.vue";
+import Twikoo from "./Twikoo.vue";
 
 const { Layout } = DefaultTheme;
 </script>
