@@ -51,7 +51,7 @@
 
 <script setup>
 import { useData, withBase } from "vitepress";
-import { ref, onMounted, watch } from "vue";
+import { ref, watch } from "vue";
 
 const { theme, isDark, frontmatter } = useData();
 
@@ -88,6 +88,7 @@ const blogSortedByTime = (blogs) => {
 
 // 生成文章
 const getBlogs = (tag) => {
+  blogSortedByTime(allBlogs);
   if (!tag) {
     blogs.value = allBlogs;
   } else {
@@ -112,10 +113,6 @@ watch(
   },
   { immediate: true }
 );
-
-onMounted(() => {
-  blogSortedByTime(allBlogs);
-});
 </script>
 
 <style>
