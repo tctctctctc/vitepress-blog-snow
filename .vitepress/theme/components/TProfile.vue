@@ -1,5 +1,5 @@
 <template>
-  <div v-if="theme.profile" :class="['t-profile', isDark ? 'dark' : '']">
+  <div v-if="theme.profile" class="t-profile">
     <!-- 头像 -->
     <div class="head">
       <img :src="withBase(theme.logo)" />
@@ -35,7 +35,7 @@
 import { useData, withBase } from "vitepress";
 import { ref } from "vue";
 
-const { theme, isDark } = useData();
+const { theme } = useData();
 
 // 归档路径
 const archivePath = ref("");
@@ -66,7 +66,7 @@ init();
   box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.05);
 }
 
-.t-profile.dark {
+.dark .t-profile {
   box-shadow: 0 3px 8px 6px rgba(236, 239, 242, 0.2);
 }
 

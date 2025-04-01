@@ -1,7 +1,7 @@
 <template>
   <div ref="homeRef" class="t-home" :style="bgStyle">
     <!-- 遮罩 -->
-    <div :class="['t-wrap', isDark ? 'dark' : '']"></div>
+    <div class="t-wrap"></div>
 
     <div class="t-home-info">
       <!-- 标题 -->
@@ -24,7 +24,7 @@ import { ref } from "vue";
 
 import TTyping from "./TTyping.vue";
 
-const { frontmatter, isDark } = useData();
+const { frontmatter } = useData();
 
 // 背景图样式
 const bgStyle = {
@@ -45,7 +45,6 @@ const onScrollDown = () => {
   });
 };
 </script>
-
 
 <style>
 @keyframes scroll-down {
@@ -122,7 +121,7 @@ const onScrollDown = () => {
   background-image: linear-gradient(#e1e1e1, var(--t-mask-bg));
 }
 
-.t-wrap.dark {
+.dark .t-wrap {
   background-image: linear-gradient(#1b1b1f, var(--t-mask-bg));
 }
 </style>

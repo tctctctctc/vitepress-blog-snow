@@ -1,7 +1,7 @@
 <template>
   <div class="t-lists">
     <!-- 列表 -->
-    <ul ref="blogListRef" :class="isDark ? 'isDark' : ''">
+    <ul ref="blogListRef">
       <li
         v-for="(blog, index) in blogs"
         :key="blog.path"
@@ -40,7 +40,7 @@ import { ref } from "vue";
 
 import TPagination from "./TPagination.vue";
 
-const { theme, isDark } = useData();
+const { theme } = useData();
 
 // 文章数据
 const blogInfos = theme.value.blogs.blogInfos;
@@ -92,7 +92,7 @@ const getBlogs = (data) => {
   flex-direction: row-reverse;
 }
 
-.t-lists > ul.isDark > li {
+.dark .t-lists > ul > li {
   box-shadow: 0 3px 8px 6px rgba(236, 239, 242, 0.2);
 }
 
