@@ -1,18 +1,10 @@
 <template>
   <div class="t-pagination">
-    <button
-      :class="isDark ? 'dark' : ''"
-      :disabled="currentPage === 1"
-      @click="subPage"
-    >
+    <button :disabled="currentPage === 1" @click="subPage">
       {{ "<" }}
     </button>
     <span class="t-page-info">{{ currentPage }} / {{ maxPage }}</span>
-    <button
-      :class="isDark ? 'dark' : ''"
-      :disabled="currentPage === maxPage"
-      @click="addPage"
-    >
+    <button :disabled="currentPage === maxPage" @click="addPage">
       {{ ">" }}
     </button>
   </div>
@@ -22,7 +14,7 @@
 import { useData } from "vitepress";
 import { watch, onMounted, ref } from "vue";
 
-const { theme, isDark } = useData();
+const { theme } = useData();
 
 const props = defineProps({
   /** 文章 */
@@ -90,7 +82,7 @@ const addPage = () => {
   background: var(--vp-c-bg-alt);
 }
 
-.t-pagination > button.dark {
+.dark .t-pagination > button {
   box-shadow: 0 3px 8px 6px rgba(236, 239, 242, 0.2);
 }
 

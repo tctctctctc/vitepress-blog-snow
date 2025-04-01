@@ -1,11 +1,7 @@
 <template>
   <div class="t-page-container">
     <!-- 标签 -->
-    <div
-      class="t-tags"
-      v-if="$frontmatter?.pageType === 'tags'"
-      :class="['t-tags', isDark ? 'dark' : '']"
-    >
+    <div class="t-tags" v-if="$frontmatter?.pageType === 'tags'">
       <div
         v-for="tag in Object.keys(allTags)"
         class="t-tag"
@@ -23,7 +19,7 @@
         <span>{{ allTags[tag] }}</span>
       </div>
     </div>
-    <div v-if="blogs.length" :class="['t-archives', isDark ? 'dark' : '']">
+    <div v-if="blogs.length" class="t-archives">
       <div class="t-archives-title">
         <span class="">{{ selectTag }}</span>
       </div>
@@ -53,7 +49,7 @@
 import { useData, withBase } from "vitepress";
 import { ref, watch } from "vue";
 
-const { theme, isDark, frontmatter } = useData();
+const { theme, frontmatter } = useData();
 
 // 全部文章数据
 const allBlogs = [...theme.value.blogs.blogInfos];
@@ -133,7 +129,7 @@ watch(
   margin-bottom: 20px;
 }
 
-.t-tags.dark {
+.dark .t-tags {
   box-shadow: 0 3px 8px 6px rgba(236, 239, 242, 0.2);
 }
 
@@ -159,7 +155,7 @@ watch(
   box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.05);
 }
 
-.t-archives.dark {
+.dark .t-archives {
   box-shadow: 0 3px 8px 6px rgba(236, 239, 242, 0.2);
 }
 
@@ -236,12 +232,15 @@ watch(
   .t-archives {
     padding: 2em 0.5em;
   }
+
   .t-archives > ul > li > .cover {
     width: 35%;
   }
+
   .t-archives > ul > li > .info {
     font-size: 0.8rem;
   }
+
   .t-archives > ul > li > .info > h2 {
     font-size: 0.9rem;
   }
