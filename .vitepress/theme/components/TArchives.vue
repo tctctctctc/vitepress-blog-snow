@@ -63,28 +63,8 @@ const selectTag = ref("");
 // 当前页面数据
 const blogs = ref([]);
 
-// 全部文章按时间排序
-const blogSortedByTime = (blogs) => {
-  blogs.sort((a, b) => {
-    if (!a.frontmatter.date) {
-      return 1;
-    }
-    if (!b.frontmatter.date) {
-      return -1;
-    }
-    if (a.frontmatter.date > b.frontmatter.date) {
-      return -1;
-    } else if (a.frontmatter.date < b.frontmatter.date) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
-};
-
 // 生成文章
 const getBlogs = (tag) => {
-  blogSortedByTime(allBlogs);
   if (!tag) {
     blogs.value = allBlogs;
   } else {

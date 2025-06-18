@@ -1,6 +1,6 @@
 ---
 title: example2
-date: '2025-02-24'
+date: '2025-02-25'
 tags: 
   - tag1
   - tag2

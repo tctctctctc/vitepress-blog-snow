@@ -26,7 +26,7 @@ const props = defineProps({
 const emits = defineEmits(["getBlogs"]);
 
 // 当前页
-const currentPage = ref(1);
+const currentPage = ref();
 
 // 每页文章数
 const pageSize = theme.value.pageSize ?? 5;
@@ -49,6 +49,7 @@ watch(
 const subPage = () => {
   if (currentPage.value > 1) {
     currentPage.value--;
+    localStorage.setItem('pageNum', currentPage.value)
   }
 };
 
@@ -56,8 +57,14 @@ const subPage = () => {
 const addPage = () => {
   if (currentPage.value < maxPage) {
     currentPage.value++;
+    localStorage.setItem('pageNum', currentPage.value)
   }
 };
+
+// 读取页码
+onMounted(() => {
+ currentPage.value = localStorage.getItem('pageNum') ?? 1
+})
 </script>
 
 <style>
