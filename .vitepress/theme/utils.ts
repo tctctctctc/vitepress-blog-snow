@@ -44,6 +44,22 @@ export function getMDFilesWithFrontmatter(dir: string): { blogInfos: BlogInfo[],
     }
   })
 
+  blogInfos.sort((a, b) => {
+    if (!a.frontmatter.date) {
+      return 1;
+    }
+    if (!b.frontmatter.date) {
+      return -1;
+    }
+    if (a.frontmatter.date > b.frontmatter.date) {
+      return -1;
+    } else if (a.frontmatter.date < b.frontmatter.date) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
   return {
     blogInfos: blogInfos,
     tags: tags
