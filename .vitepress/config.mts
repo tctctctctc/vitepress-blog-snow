@@ -52,7 +52,8 @@ export default defineConfigWithTheme({
     },
     /** twikoo评论配置 */
     twikoo: {
-      envId: ''
+      envId: '',
+      showHome: true
     }
   },
   /** 部署根目录 */
