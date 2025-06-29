@@ -8,14 +8,20 @@
     <!-- 右侧信息，如profile -->
     <div class="t-aside-container">
       <t-profile />
+      <t-comments v-if="theme.twikoo?.showHome" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { useData } from 'vitepress'
+
 import TBlogLists from "./TBlogLists.vue";
 import TProfile from "./TProfile.vue";
 import TArchives from "./TArchives.vue";
+import TComments from "./TComments.vue";
+
+const { theme } = useData()
 
 const props = defineProps({
   /** home or archives */
@@ -42,6 +48,10 @@ const props = defineProps({
 
 .t-container > .t-aside-container {
   width: 25%;
+}
+
+.t-container > .t-aside-container > * + * {
+  margin-top: 30px;
 }
 
 @media screen and (max-width: 768px) {
