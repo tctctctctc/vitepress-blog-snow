@@ -50,9 +50,14 @@ getNewCommetns()
   box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.05);
 }
 
+.t-comments > h3 {
+  font-weight: 700;
+}
+
+
 .comment {
   display: flex;
-  margin: 10px 0;
+  margin-top: 10px;
 }
 
 .comment > .left {
@@ -82,6 +87,10 @@ getNewCommetns()
   height: 40px;
   line-height: 20px;
   font-size: 14px;
+}
+
+.comment > .right > .top > a:hover {
+  color: gray
 }
 
 .comment > .right > .bottom {
